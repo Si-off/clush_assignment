@@ -1,4 +1,4 @@
-import { Calendar as AntdCalendar } from 'antd';
+import { Calendar as AntdCalendar, Button } from 'antd';
 import dayjs, { Dayjs } from 'dayjs';
 import { useState } from 'react';
 import styled from 'styled-components';
@@ -36,6 +36,7 @@ const Calendar = () => {
           value={selected.get('month')}
           onChange={(value) => setSelected(selected.set('month', value))}
         />
+        <Button onClick={() => setSelected(dayjs())}>오늘</Button>
       </S.Header>
       <div onWheel={handleWheel}>
         <AntdCalendar

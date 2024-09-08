@@ -8,7 +8,7 @@ import { Outlet, useNavigate } from 'react-router-dom';
 
 const items: MenuProps['items'] = [
   { icon: <CalendarOutlined />, key: 'calendar', label: '달력' },
-  { icon: <CalendarOutlined />, key: 'todo', label: '내 할일' },
+  { icon: <CalendarOutlined />, key: 'todos', label: '내 할일' },
 ];
 
 const SideNav = () => {

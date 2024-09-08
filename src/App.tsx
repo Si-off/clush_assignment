@@ -1,8 +1,7 @@
 import { Layout } from 'antd';
-import styled from 'styled-components';
-import { Content } from 'antd/es/layout/layout';
 import { Navigate, Route, Routes } from 'react-router-dom';
-import { SideNav, Calendar } from './components';
+import { SideNav } from './components';
+import { CalendarPage, TodoListPage } from './pages';
 
 function App() {
   return (
@@ -11,28 +10,10 @@ function App() {
         <Route path='/' element={<Navigate to='/calendar' />} />
         <Route element={<SideNav />}>
           {/** 달력 */}
-          <Route
-            path='/calendar'
-            element={
-              <Layout>
-                <S.Content>
-                  <Calendar />
-                </S.Content>
-              </Layout>
-            }
-          />
+          <Route path='/calendar' element={<CalendarPage />} />
 
           {/** 할일 */}
-          <Route
-            path='/todo'
-            element={
-              <Layout>
-                <S.Content>
-                  <Calendar />
-                </S.Content>
-              </Layout>
-            }
-          />
+          <Route path='/todos' element={<TodoListPage />} />
         </Route>
       </Routes>
     </Layout>
@@ -40,14 +21,3 @@ function App() {
 }
 
 export default App;
-
-const S = {
-  Content: styled(Content)`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 16px;
-    background-color: white;
-    padding: 0px 24px;
-  `,
-};
