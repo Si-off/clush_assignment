@@ -2,13 +2,13 @@ import { useState } from 'react';
 import Sider from 'antd/es/layout/Sider';
 import { Menu, MenuProps } from 'antd';
 
-import { CalendarOutlined } from '@ant-design/icons';
+import { CalendarOutlined, CheckSquareOutlined } from '@ant-design/icons';
 import styled from 'styled-components';
 import { Outlet, useNavigate } from 'react-router-dom';
 
 const items: MenuProps['items'] = [
   { icon: <CalendarOutlined />, key: 'calendar', label: '달력' },
-  { icon: <CalendarOutlined />, key: 'todos', label: '내 할일' },
+  { icon: <CheckSquareOutlined />, key: 'todos', label: '내 할일' },
 ];
 
 const SideNav = () => {
