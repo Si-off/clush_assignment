@@ -1,11 +1,11 @@
-import { Content } from 'antd/es/layout/layout';
+import { useState } from 'react';
+import dayjs, { Dayjs } from 'dayjs';
 import styled from 'styled-components';
+import { DatePicker, Divider, Form, Input, Modal, Tooltip } from 'antd';
+import { Content } from 'antd/es/layout/layout';
+import TextArea from 'antd/es/input/TextArea';
 import { PlusOutlined } from '@ant-design/icons';
 import useTodoStore from '../store/useTodoStore';
-import { DatePicker, Form, Input, Modal, Tooltip } from 'antd';
-import { useState } from 'react';
-import TextArea from 'antd/es/input/TextArea';
-import dayjs, { Dayjs } from 'dayjs';
 import TodoItem from '../components/TodoItem';
 
 type FormData = { title: string; content: string; date: Dayjs };
@@ -62,16 +62,29 @@ const TodoListPage = () => {
           </Form.Item>
         </Form>
       </Modal>
-      {todoList.length === 0 && (
+      {todoList.size === 0 && (
         <Tooltip title='일정 추가' zIndex={1}>
           <S.CreateButton onClick={handleOpen}>
             <PlusOutlined style={{ fontSize: '16px', color: '#8c8c8c' }} />
           </S.CreateButton>
         </Tooltip>
       )}
-      {todoList.map((todo) => (
-        <TodoItem key={todo.id} {...todo} />
-      ))}
+      <S.Container>
+        {Array.from(todoList, ([yearMonth, todos]) => (
+          <>
+            <Divider orientation='left' style={{ fontSize: '16px', fontWeight: 700 }}>
+              {yearMonth}
+            </Divider>
+            <S.Ul key={yearMonth}>
+              {todos.map((todo) => (
+                <li key={todo.id}>
+                  <TodoItem key={todo.id} {...todo} />
+                </li>
+              ))}
+            </S.Ul>
+          </>
+        ))}
+      </S.Container>
     </S.Content>
   );
 };
@@ -85,7 +98,8 @@ const S = {
     align-items: center;
     gap: 16px;
     background-color: white;
-    padding: 0px 24px;
+    padding: 24px;
+    overflow-y: auto;
   `,
   CreateButton: styled.button`
     width: 100px;
@@ -94,5 +108,16 @@ const S = {
     border: none;
     background-color: #f0f0f0;
     cursor: pointer;
+  `,
+  Container: styled.div`
+    display: flex;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+  `,
+  Ul: styled.ul`
+    display: flex;
+    flex-wrap: wrap;
+    gap: 32px;
   `,
 };

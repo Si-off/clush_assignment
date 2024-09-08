@@ -5,7 +5,7 @@ import { CalendarPage, TodoListPage } from './pages';
 
 function App() {
   return (
-    <Layout style={{ minHeight: '100vh' }}>
+    <Layout style={{ height: '100vh' }}>
       <Routes>
         <Route path='/' element={<Navigate to='/calendar' />} />
         <Route element={<SideNav />}>

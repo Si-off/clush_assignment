@@ -1,15 +1,15 @@
+import { Card } from 'antd';
 import { Todo } from '../store/useTodoStore';
 
 type Props = Todo;
 
-const TodoItem = (props: Props) => {
+const TodoItem = ({ title, content, date, isComplete }: Props) => {
   return (
-    <div>
-      <p>{props.title}</p>
-      <p>{props.content}</p>
-      <p>{props.date.format('YYYY-MM-DD')}</p>
-      <p>{props.isComplete}</p>
-    </div>
+    <Card title={title} style={{ width: '300px' }} hoverable>
+      <p>{content}</p>
+      <p>{date.format('YYYY-MM-DD')}</p>
+      <p>{isComplete}</p>
+    </Card>
   );
 };
 
