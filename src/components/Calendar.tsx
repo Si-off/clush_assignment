@@ -39,7 +39,7 @@ const Calendar = () => {
             <li
               key={todo.id}
               style={{ opacity: value.month() !== todo.date.month() ? '40%' : undefined }}>
-              <TodoBadge isComplate={todo.isComplete} data={todo} />
+              <TodoBadge isComplete={todo.isComplete} data={todo} />
             </li>
           );
         })}

@@ -1,79 +1,36 @@
-import { useState } from 'react';
-import dayjs, { Dayjs } from 'dayjs';
+import { useRef } from 'react';
 import styled from 'styled-components';
-import { DatePicker, Divider, FloatButton, Form, Input, Modal, Tooltip } from 'antd';
+import { Divider, FloatButton, Tooltip } from 'antd';
 import { Content } from 'antd/es/layout/layout';
-import TextArea from 'antd/es/input/TextArea';
 import { PlusOutlined } from '@ant-design/icons';
 import useTodoStore from '../store/useTodoStore';
 import TodoItem from '../components/TodoItem';
-
-type FormData = { title: string; content: string; date: Dayjs };
+import { CreateTodoModal } from '../components/modal';
+import { ModalImperativeHandle } from '../components/modal/CreateTodoModal';
 
 const TodoListPage = () => {
-  //* states */
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [form] = Form.useForm();
+  const { todoList } = useTodoStore();
+  const modalRef = useRef<ModalImperativeHandle>(null);
 
-  //** stores */
-  const { todoList, addTodo } = useTodoStore();
-
-  //** handlers */
-  const handleOpen = () => {
-    setIsModalOpen(true);
-  };
-
-  const handleCancel = () => {
-    setIsModalOpen(false);
-  };
-
-  const handleSubmit = () => {
-    form
-      .validateFields()
-      .then(async (values: FormData) => {
-        const { title, content, date } = values;
-
-        addTodo({ id: dayjs().format(), title, content, date, isComplete: false });
-        form.resetFields();
-        handleCancel();
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+  const handleOpenModal = () => {
+    if (modalRef.current) modalRef.current.openModal();
   };
 
   return (
     <S.Content>
       {/** 일정 추가 모달 */}
-      <Modal
-        open={isModalOpen}
-        onOk={handleSubmit}
-        onCancel={handleCancel}
-        zIndex={10}
-        title='일정 추가'>
-        <Form form={form} layout='vertical' autoComplete='off'>
-          <Form.Item label='제목' name='title' rules={[{ required: true }]}>
-            <Input placeholder='제목을 입력해주세요.' />
-          </Form.Item>
-          <Form.Item label='내용' name='content'>
-            <TextArea placeholder='내용을 입력해주세요.' autoSize={{ minRows: 2, maxRows: 6 }} />
-          </Form.Item>
-          <Form.Item label='날짜' name='date' rules={[{ required: true }]}>
-            <DatePicker />
-          </Form.Item>
-        </Form>
-      </Modal>
+      <CreateTodoModal ref={modalRef} />
 
       {/** 일정추가 버튼 */}
       {todoList.size === 0 ? (
         <Tooltip title='일정 추가' zIndex={1}>
-          <S.CreateButton onClick={handleOpen}>
+          <S.CreateButton onClick={handleOpenModal}>
             <PlusOutlined style={{ fontSize: '16px', color: '#8c8c8c' }} />
           </S.CreateButton>
         </Tooltip>
       ) : (
         <Tooltip title='일정 추가'>
-          <FloatButton type='primary' icon={<PlusOutlined />} onClick={handleOpen} />
+          <FloatButton type='primary' icon={<PlusOutlined />} onClick={handleOpenModal} />
         </Tooltip>
       )}
 
