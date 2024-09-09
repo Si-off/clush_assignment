@@ -23,7 +23,7 @@ const DateSelect = ({ type, defaultValue, value, onChange }: Props) => {
         const start = now.get('year') - 10;
         const end = now.get('year') + 10;
 
-        for (let i = start; i < end; i++) {
+        for (let i = start; i <= end; i++) {
           options.push({ value: i, label: i });
         }
         break;

@@ -1,6 +1,6 @@
 import { forwardRef, useEffect, useImperativeHandle, useState } from 'react';
 import { Form, Modal, Input, DatePicker, Checkbox, Button } from 'antd';
-import { Dayjs } from 'dayjs';
+import dayjs, { Dayjs } from 'dayjs';
 import TextArea from 'antd/es/input/TextArea';
 import useTodoStore, { Todo } from '../../store/useTodoStore';
 
@@ -75,7 +75,10 @@ const ModifyTodoModal = forwardRef(({ data }: Props, modalRef) => {
           <TextArea placeholder='내용을 입력해주세요.' autoSize={{ minRows: 2, maxRows: 6 }} />
         </Form.Item>
         <Form.Item label='날짜' name='date' rules={[{ required: true }]}>
-          <DatePicker />
+          <DatePicker
+            minDate={dayjs().subtract(10, 'year').set('month', 0).set('date', 1)}
+            maxDate={dayjs().add(10, 'year').set('month', 11).set('date', 31)}
+          />
         </Form.Item>
         <Form.Item label='완료' name='isComplete' valuePropName='checked'>
           <Checkbox />
