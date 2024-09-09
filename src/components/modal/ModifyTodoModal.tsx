@@ -1,5 +1,5 @@
 import { forwardRef, useEffect, useImperativeHandle, useState } from 'react';
-import { Form, Modal, Input, DatePicker, Checkbox } from 'antd';
+import { Form, Modal, Input, DatePicker, Checkbox, Button } from 'antd';
 import { Dayjs } from 'dayjs';
 import TextArea from 'antd/es/input/TextArea';
 import useTodoStore, { Todo } from '../../store/useTodoStore';
@@ -13,7 +13,7 @@ interface Props {
 const ModifyTodoModal = forwardRef(({ data }: Props, modalRef) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [form] = Form.useForm();
-  const { modifyTodo } = useTodoStore();
+  const { modifyTodo, removeTodo } = useTodoStore();
 
   useEffect(() => {
     if (data) {
@@ -55,6 +55,11 @@ const ModifyTodoModal = forwardRef(({ data }: Props, modalRef) => {
       });
   };
 
+  const handleDelete = () => {
+    if (!data) return;
+    removeTodo(data?.id);
+  };
+
   return (
     <Modal
       open={isModalOpen}
@@ -76,6 +81,9 @@ const ModifyTodoModal = forwardRef(({ data }: Props, modalRef) => {
           <Checkbox />
         </Form.Item>
       </Form>
+      <Button type='primary' onClick={handleDelete} danger>
+        삭제
+      </Button>
     </Modal>
   );
 });
