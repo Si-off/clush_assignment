@@ -15,7 +15,7 @@ function App() {
           {/** 할일 */}
           <Route path='/todos' element={<TodoListPage />} />
 
-          <Route path='*' element={<Navigate to='/calendar' replace />} />
+          <Route path='*' element={<Navigate to='/calendar' />} />
         </Route>
       </Routes>
     </Layout>
