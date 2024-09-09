@@ -1,50 +1,29 @@
-# React + TypeScript + Vite
+# 클러쉬 프론트엔드 과제테스트
+## 배포 링크
+https://clush-assignment.vercel.app
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+</br>
 
-Currently, two official plugins are available:
+## 설치 및 실행
+### 요구사항
+- yarn
+- node.js 18+
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+### 패키지 설치
+```
+yarn install
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+### 개발환경 실행
 ```
+yarn dev
+```
+
+</br>
+
+## 기술스택
+- React v18
+- Ant-Design v5
+- react-router-dom: 일정, 캘린더 페이지 전환을 위해 사용하였습니다.
+- zustand: 일정(Todo) 데이터를 전역으로 관리하기 위해 사용한 상태관리 라이브러리입니다..
+- styled-components: Ant-design 컴포넌트의 스타일을 커스텀하거나 필요한 스타일을 작성하기 위해 사용한 CSS-in-JS 라이브러리입니다.
