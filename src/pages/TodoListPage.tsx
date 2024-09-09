@@ -29,28 +29,29 @@ const TodoListPage = () => {
           </S.CreateButton>
         </Tooltip>
       ) : (
-        <Tooltip title='일정 추가'>
-          <FloatButton type='primary' icon={<PlusOutlined />} onClick={handleOpenModal} />
-        </Tooltip>
+        <>
+          <Tooltip title='일정 추가'>
+            <FloatButton type='primary' icon={<PlusOutlined />} onClick={handleOpenModal} />
+          </Tooltip>
+          {/** 일정 리스트 */}
+          <S.Container>
+            {Array.from(todoList, ([yearMonth, todos]) => (
+              <div key={yearMonth}>
+                <Divider orientation='left' style={{ fontSize: '16px', fontWeight: 700 }}>
+                  {yearMonth}
+                </Divider>
+                <S.Ul>
+                  {todos.map((todo) => (
+                    <li key={todo.id}>
+                      <TodoItem {...todo} />
+                    </li>
+                  ))}
+                </S.Ul>
+              </div>
+            ))}
+          </S.Container>
+        </>
       )}
-
-      {/** 일정 리스트 */}
-      <S.Container>
-        {Array.from(todoList, ([yearMonth, todos]) => (
-          <div key={yearMonth}>
-            <Divider orientation='left' style={{ fontSize: '16px', fontWeight: 700 }}>
-              {yearMonth}
-            </Divider>
-            <S.Ul>
-              {todos.map((todo) => (
-                <li key={todo.id}>
-                  <TodoItem {...todo} />
-                </li>
-              ))}
-            </S.Ul>
-          </div>
-        ))}
-      </S.Container>
     </S.Content>
   );
 };
