@@ -13,6 +13,7 @@ interface TodoStore {
   todoList: Map<string, Todo[]>;
   addTodo: (todo: Todo) => void;
   removeTodo: (id: string) => void;
+  modifyTodo: (updatedTodo: Partial<Todo> & Required<Pick<Todo, 'id'>>) => void;
 }
 
 /** 초기값 */
@@ -30,6 +31,20 @@ const INIT_DATA: Pick<TodoStore, 'todoList'> = {
         },
         {
           id: '2',
+          title: 'Meeting with team',
+          content: 'Discuss project updates',
+          date: dayjs('2024-09-02'),
+          isComplete: true,
+        },
+        {
+          id: '02',
+          title: 'Meeting with team',
+          content: 'Discuss project updates',
+          date: dayjs('2024-09-02'),
+          isComplete: true,
+        },
+        {
+          id: '002',
           title: 'Meeting with team',
           content: 'Discuss project updates',
           date: dayjs('2024-09-02'),
@@ -106,6 +121,7 @@ const INIT_DATA: Pick<TodoStore, 'todoList'> = {
 
 const useTodoStore = create<TodoStore>((set) => ({
   todoList: INIT_DATA.todoList,
+
   addTodo: (todo) =>
     set((state) => {
       const yearMonth = todo.date.format('YYYY-MM');
@@ -127,6 +143,19 @@ const useTodoStore = create<TodoStore>((set) => ({
         }
       });
       return { todoList: newTodoList };
+    }),
+
+  modifyTodo: (updatedTodo) =>
+    set((state) => {
+      const yearMonth = updatedTodo.date?.format('YYYY-MM') || '';
+      const currentTodos = state.todoList.get(yearMonth) || [];
+      const updatedTodos = currentTodos.map((todo) =>
+        todo.id === updatedTodo.id ? { ...todo, ...updatedTodo } : todo
+      );
+
+      return {
+        todoList: new Map(state.todoList).set(yearMonth, updatedTodos),
+      };
     }),
 }));
 
