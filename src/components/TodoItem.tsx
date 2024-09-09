@@ -3,9 +3,9 @@ import { Todo } from '../store/useTodoStore';
 
 type Props = Todo;
 
-const TodoItem = ({ title, content, date, isComplete }: Props) => {
+const TodoItem = ({ id, title, content, date, isComplete }: Props) => {
   return (
-    <Card title={title} style={{ width: '300px' }} hoverable>
+    <Card key={id} title={title} style={{ width: '300px' }} hoverable>
       <p>{content}</p>
       <p>{date.format('YYYY-MM-DD')}</p>
       <p>{isComplete}</p>

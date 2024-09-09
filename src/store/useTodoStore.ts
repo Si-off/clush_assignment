@@ -122,6 +122,7 @@ const INIT_DATA: Pick<TodoStore, 'todoList'> = {
 const useTodoStore = create<TodoStore>((set) => ({
   todoList: INIT_DATA.todoList,
 
+  /** 일정 추가 */
   addTodo: (todo) =>
     set((state) => {
       const yearMonth = todo.date.format('YYYY-MM');
@@ -131,6 +132,7 @@ const useTodoStore = create<TodoStore>((set) => ({
       };
     }),
 
+  /** 일정 삭제 */
   removeTodo: (id) =>
     set((state) => {
       const newTodoList = new Map(state.todoList);
@@ -145,6 +147,7 @@ const useTodoStore = create<TodoStore>((set) => ({
       return { todoList: newTodoList };
     }),
 
+  /** 일정 수정 */
   modifyTodo: (updatedTodo) =>
     set((state) => {
       const yearMonth = updatedTodo.date?.format('YYYY-MM') || '';

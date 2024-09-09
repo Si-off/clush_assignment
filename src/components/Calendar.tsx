@@ -33,7 +33,8 @@ const Calendar = () => {
           e.stopPropagation();
         }}>
         {todoList.get(selected.format('YYYY-MM'))?.map((todo) => {
-          if (value.date() !== todo.date.date()) return;
+          if (value.format('YYYY-MM-DD') !== todo.date.format('YYYY-MM-DD')) return;
+
           return (
             <li
               key={todo.id}
@@ -48,6 +49,7 @@ const Calendar = () => {
 
   return (
     <>
+      {/** 날짜 변경 헤더 */}
       <S.Header>
         <DateSelect
           type='year'
@@ -63,6 +65,8 @@ const Calendar = () => {
         />
         <Button onClick={() => setSelected(dayjs())}>오늘</Button>
       </S.Header>
+
+      {/** 달력 */}
       <div onWheel={handleWheel}>
         <AntdCalendar
           defaultValue={selected}

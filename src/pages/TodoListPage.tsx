@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import dayjs, { Dayjs } from 'dayjs';
 import styled from 'styled-components';
-import { DatePicker, Divider, Form, Input, Modal, Tooltip } from 'antd';
+import { DatePicker, Divider, FloatButton, Form, Input, Modal, Tooltip } from 'antd';
 import { Content } from 'antd/es/layout/layout';
 import TextArea from 'antd/es/input/TextArea';
 import { PlusOutlined } from '@ant-design/icons';
@@ -44,6 +44,7 @@ const TodoListPage = () => {
 
   return (
     <S.Content>
+      {/** 일정 추가 모달 */}
       <Modal
         open={isModalOpen}
         onOk={handleSubmit}
@@ -62,27 +63,35 @@ const TodoListPage = () => {
           </Form.Item>
         </Form>
       </Modal>
-      {todoList.size === 0 && (
+
+      {/** 일정추가 버튼 */}
+      {todoList.size === 0 ? (
         <Tooltip title='일정 추가' zIndex={1}>
           <S.CreateButton onClick={handleOpen}>
             <PlusOutlined style={{ fontSize: '16px', color: '#8c8c8c' }} />
           </S.CreateButton>
         </Tooltip>
+      ) : (
+        <Tooltip title='일정 추가'>
+          <FloatButton type='primary' icon={<PlusOutlined />} onClick={handleOpen} />
+        </Tooltip>
       )}
+
+      {/** 일정 리스트 */}
       <S.Container>
         {Array.from(todoList, ([yearMonth, todos]) => (
-          <>
+          <div key={yearMonth}>
             <Divider orientation='left' style={{ fontSize: '16px', fontWeight: 700 }}>
               {yearMonth}
             </Divider>
-            <S.Ul key={yearMonth}>
+            <S.Ul>
               {todos.map((todo) => (
                 <li key={todo.id}>
-                  <TodoItem key={todo.id} {...todo} />
+                  <TodoItem {...todo} />
                 </li>
               ))}
             </S.Ul>
-          </>
+          </div>
         ))}
       </S.Container>
     </S.Content>
