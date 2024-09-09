@@ -46,7 +46,7 @@ yarn dev
 </br>
 
 ## 주력으로 사용한 컴포넌트
-- `Select`
+- `Select`:
 Ant Design의 기본 Calendar 헤더를 커스터마이징하기 위해 Select를 기반으로 DateSelect 컴포넌트를 구현하였습니다. type prop을 사용하여 렌더링 시 Select 옵션을 조정할 수 있습니다.
 ```jsx
 <DateSelect
@@ -59,9 +59,9 @@ Ant Design의 기본 Calendar 헤더를 커스터마이징하기 위해 Select�
 
 </br>
 
-- `Modal`
+- `Modal`:
 일정 추가, 삭제, 수정 기능을 모달을 통해 처리하였습니다. 여러 컴포넌트에서 모달이 필요했기 때문에 재사용성을 높이기 위해 Modal 컴포넌트를 분리하였으며, 부모 컴포넌트에서 모달의 열림/닫힘 상태를 제어할 수 있도록 useImperativeHandle 훅을 사용하였습니다.
-`useImperativeHandle` 훅은 부모 컴포넌트에서 전달 받은 ref로 모달 컴포넌트의 `openModal()`, `closeModal()`을 전달합니다.
+useImperativeHandle 훅은 부모 컴포넌트에서 전달 받은 ref로 모달 컴포넌트의 openModal(), closeModal()을 전달합니다.
 
 ```jsx
 const modalRef = useRef<ModalImperativeHandle>(null);
@@ -77,5 +77,5 @@ const handleOpenModal = () => {
 </br>
 
 - `Layout`, `Sider`, `Menu`: 페이지 레이아웃, 네이게이션을 구성하기 위해 사용했습니다.
-- `Tooltip`, `FloatButton`: 일정 추가 버튼을 위해 사용한 FloatButton이 어떤 기능을 하는지 표현하기 위해 `Tooltip`과 함께 사용하였습니다.
+- `Tooltip`, `FloatButton`: 일정 추가 버튼을 위해 사용한 FloatButton이 어떤 기능을 하는지 표현하기 위해 `ooltip과 함께 사용하였습니다.
 - `Calendar`: 휠 입력을 통해 날짜 이동을 편하게 할 수 있도록 기능을 추가하였고, 일 별로 추가된 일정이 렌더링 될 수 있도록 하였습니다.
