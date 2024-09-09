@@ -4,7 +4,7 @@ import { Menu, MenuProps } from 'antd';
 
 import { CalendarOutlined, CheckSquareOutlined } from '@ant-design/icons';
 import styled from 'styled-components';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 const items: MenuProps['items'] = [
   { icon: <CalendarOutlined />, key: 'calendar', label: '달력' },
@@ -13,6 +13,7 @@ const items: MenuProps['items'] = [
 
 const SideNav = () => {
   const [collapsed, setCollapsed] = useState(false);
+  const { pathname } = useLocation();
 
   const navigate = useNavigate();
 
@@ -26,7 +27,7 @@ const SideNav = () => {
         <Menu
           theme='dark'
           mode='inline'
-          defaultSelectedKeys={['calendar']}
+          defaultSelectedKeys={[pathname.replace('/', '')]}
           items={items}
           onSelect={({ key }) => handleSelect(key)}
         />
